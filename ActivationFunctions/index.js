@@ -24,7 +24,7 @@ function feedForward(inputs = [], target = 0, epochs = 1) {
     }
 
     let sum = funcSum(multiply);
-    let output = parseFloat(Math.tanh(sum)).toFixed(4);
+    let output = parseFloat(relu(sum)).toFixed(4);
 
     let error = parseFloat(Math.abs(target - output)).toFixed(4);
     for (let j = 0; j < inputs.length; j++) {
@@ -36,4 +36,29 @@ function feedForward(inputs = [], target = 0, epochs = 1) {
   }
 }
 
-feedForward([0, 0], 0.1, 800);
+// hyperbolic tangent: returns values ​​between -1 and 1
+function tanh(n = 0) {
+  return Math.sign(n) / Math.cosh(n);
+}
+
+// sigmoid function: returns values BETWEEN 0 and 1
+function sigmoid(n = 0) {
+  return 1 / (1 + Math.pow(Math.E, -n));
+}
+
+// rectified linear unit(relu): returns only null and positive values
+function relu(n = 0) {
+  return Math.max(n, 0);
+}
+
+// leaky relu rectified linear unit: returns only values ​​greater than 0
+function leakyRelu(n = 0) {
+  return Math.max(n, 0.01);
+}
+
+// binary step: return only 0 OR 1
+function binaryStep(n = 0) {
+  return n >= 0 ? 1 : 0;
+}
+
+feedForward([0], 0.1, 800);
